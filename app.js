@@ -90,6 +90,15 @@ class GridSystem {
             // "area5": {"p1": {x:32,y:1}, "p2": {x:4,y:19}, "p3": {x:4,y:9}, "p4": {x:4,y:11}, "p5": {x:4,y:12}, "p6": {x:4,y:13}, "p7": {x:4,y:14}, "p8": {x:4,y:1}, "p9": {x:4,y:2}, "p10": {x:4,y:3}, "p11": {x:4,y:4},},
         };
 
+        this.stepsAllowedForEachLevel = {
+            1:14, 2:19, 3:17, 4:18, 
+            5:24, 6:21, 7:20, 8:20, 
+            9:16, 10:21, 11:26, 12:26, 
+            13:23, 14:16, 15:21, 16:26, 
+            17:16, 18:18, 19:21, 20:18, 
+            21:18
+        }
+
         //this.extraArr = ["TCR", "LOK", "LK", "JHA", "JV", "CJH", "SZF", "JHA", "TJY", "KX"];
         //this.extraArr = ["TCR", "JX", "JZ", "TWN", "LJY", "ELI", "CUR", "LSH", "CT", "LK", "JV"];
         //this.extraArr = ["TCR", "CUR", "CT", "ELI", "JZ", "LJY", "TWN", "RYD", "JX", "LK", "JV"];
@@ -100,18 +109,18 @@ class GridSystem {
         //this.p1 = { x: 1, y: 1, lable: 2, id: this.extraArr[0], steps: this.startingSteps, area: "mainArea", wallet: 0, total: 0, storeSteps: 1000 };
         // this.playersArr = [this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this.p7, this.p8, this.p9, this.p10];
         this.playersArr = [
-            this.p1 = new Player({x: 1, y: 10, lable: 13, id: this.extraArr[0], area: "area1", color: "grey", startingSteps: 500, eagleEye: true}),
+            this.p1 = new Player({x: 1, y: 10, lable: 13, id: this.extraArr[0], area: "area1", color: "grey", startingSteps: 0, eagleEye: true}),
 
-            this.p2 = new Player({x: 16, y: 8, lable: 3, id: this.extraArr[1], area: "area1", color: "springgreen"}),
-            this.p3 = new Player({x: 16, y: 9, lable: 4, id: this.extraArr[2], area: "area1", color: "orange"}),
-            this.p4 = new Player({x: 16, y: 11, lable: 5, id: this.extraArr[3], area: "area1", color: "lightblue"}),
-            this.p5 = new Player({x: 16, y: 12, lable: 6, id: this.extraArr[4], area: "area1", color: "moccasin"}),
+            this.p2 = new Player({x: 16, y: 8, lable: 3, id: this.extraArr[1], area: "area1", color: "DodgerBlue"}),
+            this.p3 = new Player({x: 16, y: 9, lable: 4, id: this.extraArr[2], area: "area1", color: "lightblue"}),
+            this.p4 = new Player({x: 16, y: 11, lable: 5, id: this.extraArr[3], area: "area1", color: "springgreen"}),
+            this.p5 = new Player({x: 16, y: 12, lable: 6, id: this.extraArr[4], area: "area1", color: "aquamarine"}),
             this.p6 = new Player({x: 16, y: 13, lable: 7, id: this.extraArr[5], area: "area1", color: "deepskyblue"}),
             this.p7 = new Player({x: 17, y: 7, lable: 8, id: this.extraArr[6], area: "area1", color: "white"}),
             this.p8 = new Player({x: 17, y: 8, lable: 9, id: this.extraArr[7], area: "area1", color: "hotpink"}),
             this.p9 = new Player({x: 17, y: 9, lable: 10, id: this.extraArr[8], area: "area1", color: "teal"}),
             this.p10 = new Player({x: 17, y: 12, lable: 11, id: this.extraArr[9], area: "area1", color: "yellow"}),
-            this.p11 = new Player({x: 17, y: 13, lable: 12, id: this.extraArr[10], area: "area1", color: "turquoise"})
+            this.p11 = new Player({x: 17, y: 13, lable: 12, id: this.extraArr[10], area: "area1", color: "orange"})
         ];
 
         this.itemsArr = [
@@ -381,6 +390,8 @@ class GridSystem {
 
         this.playersArr.forEach((player) => {
 
+            player.bank += player.wallet;
+            player.wallet = 0;
             this.startArea = levelSequence[this.currentLevelNumber];
             this.setStartingPointMultiLevel(player);
             this.setStartingPowersMultiLevel(player);
@@ -388,7 +399,8 @@ class GridSystem {
             this.transitionToAnotherArea5(levelSequence[this.currentLevelNumber], player);
             player.area = levelSequence[this.currentLevelNumber];
             
-            if(player.id != "TCR") {player.steps = 0};
+            player.steps = this.stepsAllowedForEachLevel[this.currentLevelNumber];
+            // if(player.id != "TCR") {player.steps = 0};
         });
 
     }
@@ -518,7 +530,9 @@ class GridSystem {
             player.obtainedPowers = [];
             this.teamSlots1 = [];
             this.teamSlots2 = [];
-            player.steps = 0;
+            // player.steps = 0;
+            this.currentLevelNumber = 1;
+            player.steps = this.stepsAllowedForEachLevel[this.currentLevelNumber];
             player.wallet = 0;
             this.setStartingPowersMultiLevel(player);
          });
@@ -540,6 +554,9 @@ class GridSystem {
             this.teamSlots1 = [];
             this.teamSlots2 = [];
             // player.steps = 0;
+            player.steps = this.stepsAllowedForEachLevel[this.currentLevelNumber];
+            player.wallet = 0;
+
             this.setStartingPowersMultiLevel(player);
          });
         //  this.currentLevelNumber = 1;

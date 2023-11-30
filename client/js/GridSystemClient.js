@@ -120,7 +120,7 @@ class GridSystemClient {
 
             // this.topContext.scale(0.8, 0.8);
             this.topContext.scale(-1, 1);
-            printPlayerInfo = `:${player.steps}/${player.maxSteps} 💰:${player.wallet} 🎒:${player.inventory}`;
+            printPlayerInfo = `:${player.steps}/${player.maxSteps} 💰:${player.wallet} 🏦:${player.bank}`;
             this.topContext.fillText(printPlayerInfo, 39, nextLine);
 
             nextLine = nextLine + 15;

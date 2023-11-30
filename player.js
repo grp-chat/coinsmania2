@@ -4,7 +4,7 @@ class Player {
         this.y = config.y;
         this.lable = config.lable;
         this.id = config.id || "GS";
-        this.startingSteps = config.startingSteps || 500;
+        this.startingSteps = config.startingSteps || 14;
         this.stepsAwardedBeforeGameStarts = 0;
         //this.maxSteps = config.maxSteps || 500;
         this.steps = config.steps || this.startingSteps;
