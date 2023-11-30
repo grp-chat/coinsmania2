@@ -26,6 +26,7 @@ class Player {
         this.originArea = config.area;
         this.inventory = "";
         this.wallet = 0;
+        this.bank = 0;
         this.maxInventory = 10;
         
         this.team = 0;

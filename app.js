@@ -519,11 +519,33 @@ class GridSystem {
             this.teamSlots1 = [];
             this.teamSlots2 = [];
             player.steps = 0;
+            player.wallet = 0;
             this.setStartingPowersMultiLevel(player);
          });
          this.currentLevelNumber = 1;
          this.emitToUsers('sendMatrix');
     }
+    resetCurrentLevel() {
+        this.allMatrixes = new AllMatrixes();
+        // this.allMatrixes = JSON.parse(JSON.stringify(this.allMatrixesBackup));
+         //this.duplicateMatrix(matrix);
+         this.playersArr.forEach((player) => {
+            player.x = player.originX;
+            player.y = player.originY;
+            // player.area = player.originArea;
+            player.inventory = "";  
+            player.team = 0;
+            this.startingPoint(player);
+            player.obtainedPowers = [];
+            this.teamSlots1 = [];
+            this.teamSlots2 = [];
+            // player.steps = 0;
+            this.setStartingPowersMultiLevel(player);
+         });
+        //  this.currentLevelNumber = 1;
+         this.emitToUsers('sendMatrix');
+    }
+
     emitToUsers(eventName) {
         const allMatrixes = this.allMatrixes;
         const playersArr = this.playersArr;
@@ -603,7 +625,14 @@ io.sockets.on('connection', function (sock) {
         gridSystem.emitToUsers('sendMatrix');
 
     });
-    sock.on('restartLevel', () => {
+    sock.on('restartCurrentLevel', () => {
+
+        gridSystem.resetCurrentLevel();
+
+        gridSystem.emitToUsers('sendMatrix');
+        
+    });
+    sock.on('restartGame', () => {
 
         gridSystem.resetMap();
 
