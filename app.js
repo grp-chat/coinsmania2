@@ -534,6 +534,7 @@ class GridSystem {
             this.currentLevelNumber = 1;
             player.steps = this.stepsAllowedForEachLevel[this.currentLevelNumber];
             player.wallet = 0;
+            player.bank = 0;
             this.setStartingPowersMultiLevel(player);
          });
          this.currentLevelNumber = 1;
