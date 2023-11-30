@@ -80,7 +80,7 @@ class GridSystem {
         this.currentLevelNumber = 1;
 
         this.defaultStartingPoints = {
-            "area1": {"p1": {x:25,y:11}, "p2": {x:1,y:8}, "p3": {x:1,y:9}, "p4": {x:1,y:10}, "p5": {x:1,y:11}, "p6": {x:1,y:12}, "p7": {x:32,y:8}, "p8": {x:32,y:9}, "p9": {x:32,y:10}, "p10": {x:32,y:11}, "p11": {x:32,y:12},},
+            "area1": {"p1": {x:25,y:11}, "p2": {x:1,y:1}, "p3": {x:7,y:1}, "p4": {x:13,y:1}, "p5": {x:19,y:1}, "p6": {x:25,y:1}, "p7": {x:1,y:11}, "p8": {x:7,y:11}, "p9": {x:13,y:11}, "p10": {x:19,y:11}, "p11": {x:32,y:12},},
             // "area1": {"p1": {x:7,y:10}, "p2": {x:1,y:8}, "p3": {x:1,y:9}, "p4": {x:1,y:10}, "p5": {x:1,y:11}, "p6": {x:1,y:12}, "p7": {x:32,y:8}, "p8": {x:32,y:9}, "p9": {x:32,y:10}, "p10": {x:32,y:11}, "p11": {x:32,y:12},},
             
             //"area1": {"p1": {x:8,y:17}, "p2": {x:3,y:15}, "p3": {x:3,y:16}, "p4": {x:3,y:17}, "p5": {x:3,y:18}, "p6": {x:3,y:19}, "p7": {x:13,y:15}, "p8": {x:13,y:16}, "p9": {x:13,y:17}, "p10": {x:13,y:18}, "p11": {x:13,y:19},},
@@ -94,7 +94,8 @@ class GridSystem {
         //this.extraArr = ["TCR", "JX", "JZ", "TWN", "LJY", "ELI", "CUR", "LSH", "CT", "LK", "JV"];
         //this.extraArr = ["TCR", "CUR", "CT", "ELI", "JZ", "LJY", "TWN", "RYD", "JX", "LK", "JV"];
         // this.extraArr = ["TCR", "LOK", "JHA", "KN", "JT", "CJH", "CED", "KX", "TJY", "LSH", "SZF"];
-        this.extraArr = ["TCR", "LOK", "JHA", "KN", "JT", "CJH", "CED", "KX", "TJY", "RYD", "SZF"];
+        // this.extraArr = ["TCR", "LOK", "JHA", "KN", "JT", "CJH", "CED", "KX", "TJY", "RYD", "SZF"];
+        this.extraArr = ["TCR", "CKH", "JUN", "JOE", "CJ", "JON", "LL", "EX1", "EX2", "EX3", "EX4"];
 
         //this.p1 = { x: 1, y: 1, lable: 2, id: this.extraArr[0], steps: this.startingSteps, area: "mainArea", wallet: 0, total: 0, storeSteps: 1000 };
         // this.playersArr = [this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this.p7, this.p8, this.p9, this.p10];
@@ -363,9 +364,21 @@ class GridSystem {
     goToNextLevel() {
         //if (activatedMatrixCounter === 5) {activatedMatrixCounter = 1;}
         this.currentLevelNumber++;
-        console.log(this.currentLevelNumber);
-        if (this.currentLevelNumber > 5) {this.currentLevelNumber = 1;}
-        const levelSequence = {1:"area1", 2:"area2", 3:"area3", 4:"area4", 5:"area5"};
+        // console.log(this.currentLevelNumber);
+        
+        const levelSequence = {
+            1:"area1", 2:"area2", 3:"area3", 4:"area4", 
+            5:"area5", 6:"area6", 7:"area7", 8:"area8", 
+            9:"area9", 10:"area10", 11:"area11", 12:"area12", //girdsys8-5
+            13:"area13", 14:"area14", 15:"area15", 16:"area16", //gridsys8-6
+            17:"area17", 18:"area18", 19:"area19", 20:"area20", //gridsys8-7
+            21:"area21",  //gridsys8-3
+            // :"area", :"area", :"area", :"area", 
+        };
+
+        if (this.currentLevelNumber > Object.keys(levelSequence).length) {this.currentLevelNumber = 1;}
+        // console.log("Length: " + Object.keys(levelSequence).length);
+
         this.playersArr.forEach((player) => {
 
             this.startArea = levelSequence[this.currentLevelNumber];
@@ -615,7 +628,7 @@ io.sockets.on('connection', function (sock) {
 
         gridSystem.emitToUsers('sendMatrix');
         
-        console.log(`New command run`)
+        // console.log(`New command run`)
     });
 
     
